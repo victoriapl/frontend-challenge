@@ -1,0 +1,33 @@
+{
+    "products": {
+        "catalog-title": "Catalog",
+        "search": "Search"
+    },
+    "dropdownFilter": {
+        "filter-title": "Taxes",
+        "es_general_21": "ES General 21%",
+        "es_reduced_10": "ES Reduced 10%",
+        "es_super-reduced_4": "ES Super reduced 4%",
+        "fr_general_20": "FR General 20%",
+        "fr_reduced_5.5": "FR Reduced 5,5%",
+        "filter-clear": "Clear",
+        "filter-apply": "Apply"
+    },
+    "productsTable": {
+        "products-title": "Products",
+        "sku": "SKU",
+        "article": "ARTICLE",
+        "price": "PRICE",
+        "tax": "TAX",
+        "stock": "STOCK",
+        "stock-empty": "Empty"
+    },
+    "paginationNumeric": {
+        "results": "results",
+        "to": "to",
+        "of": "of"
+    },
+    "sidebar": {
+        "catalog": "Catalog"
+    }
+}
