@@ -2,44 +2,11 @@ import React from "react";
 import { render, screen, act } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router-dom";
 import Products from "../Products";
+import mockProducts from "../../__tests__/__mocks__/productsMock.json";
 
-const mockProducts = [
-  {
-    id: "0",
-    title: "Durable Iron Knife",
-    price: 43.75,
-    stock: 7,
-    tax: "es_general_21",
-  },
-  {
-    id: "1",
-    title: "Intelligent Cotton Watch",
-    price: 59.0,
-    stock: 12,
-    tax: "fr_general_20",
-  },
-  {
-    id: "2",
-    title: "Synergistic Steel Chair",
-    price: 89.0,
-    stock: 24,
-    tax: "es_reduced_10",
-  },
-  {
-    id: "3",
-    title: "Rustic Plastic Clock",
-    price: 129.0,
-    stock: 26,
-    tax: "fr_reduced_5.5",
-  },
-  {
-    id: "4",
-    title: "Ergonomic Concrete Keyboard",
-    price: 129.0,
-    stock: 7,
-    tax: "es_reduced_10",
-  },
-];
+jest.mock("react-i18next", () => ({
+  useTranslation: () => ({ t: (key) => key }),
+}));
 
 global.fetch = jest.fn(() =>
   Promise.resolve({
