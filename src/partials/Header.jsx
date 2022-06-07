@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import EN from "./../images/en_lng.jpg";
-import ES from "./../images/es_lng.png";
+import EN from "./../icons/en_lng.jpg";
+import ES from "./../icons/es_lng.png";
 
 function Header() {
   const { i18n } = useTranslation();

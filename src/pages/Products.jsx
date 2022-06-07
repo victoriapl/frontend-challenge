@@ -92,7 +92,6 @@ function Products() {
               : ""
           }
         `),
-          // order: `order: "ASC"`,
         }),
       }).then((response) => {
         if (response.status >= 400) {
@@ -151,6 +150,7 @@ function Products() {
             <ProductsTable
               totalResults={totalResults}
               productsList={productsList}
+              orderListBy={orderListBy}
               setOrderListBy={setOrderListBy}
             />
 

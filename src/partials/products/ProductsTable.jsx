@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import Product from "./ProductsTableItem";
+import ArrowIcon from "./../../icons/arrow-icon.svg";
 
-function ProductsTable({ totalResults, productsList, setOrderListBy }) {
+const DESC_DIRECTION = "DESC";
+const ASC_DIRECTION = "ASC";
+
+function ProductsTable({
+  totalResults,
+  productsList,
+  setOrderListBy,
+  orderListBy,
+}) {
   const { t } = useTranslation("global");
   const formatterEuro = new Intl.NumberFormat("es-ES", {
     style: "currency",
@@ -44,14 +53,35 @@ function ProductsTable({ totalResults, productsList, setOrderListBy }) {
                         return {
                           value: key,
                           direction:
-                            prev.value === key && prev.direction === "ASC"
-                              ? "DESC"
-                              : "ASC",
+                            prev?.value === key &&
+                            prev.direction === ASC_DIRECTION
+                              ? DESC_DIRECTION
+                              : ASC_DIRECTION,
                         };
                       });
                     }}
                   >
-                    <div className="font-semibold text-left">{title}</div>
+                    <div className="flex">
+                      <div className="font-semibold text-left">{title}</div>
+                      {orderListBy?.value === key ? (
+                        <div
+                          className={`mx-1 self-center ${
+                            orderListBy.direction === ASC_DIRECTION
+                              ? "rotate-180"
+                              : ""
+                          }`}
+                        >
+                          <img
+                            src={ArrowIcon}
+                            width="16"
+                            height="16"
+                            alt="arrow"
+                          />
+                        </div>
+                      ) : (
+                        <div className="w-6" />
+                      )}
+                    </div>
                   </th>
                 ))}
               </tr>
