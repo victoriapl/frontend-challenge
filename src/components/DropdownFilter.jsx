@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import Transition from "../utils/Transition";
+import { FILTER_OPTIONS } from "../constants";
 
 function DropdownFilter({
   align,
@@ -13,24 +14,13 @@ function DropdownFilter({
   const trigger = useRef(null);
   const dropdown = useRef(null);
 
-  const filterOptions = [
-    { value: "es_general_21", label: t("dropdownFilter.es_general_21") },
-    { value: "es_reduced_10", label: t("dropdownFilter.es_reduced_10") },
-    {
-      value: "es_super-reduced_4",
-      label: t("dropdownFilter.es_super-reduced_4"),
-    },
-    { value: "fr_general_20", label: t("dropdownFilter.fr_general_20") },
-    { value: "fr_reduced_5.5", label: t("dropdownFilter.fr_reduced_5.5") },
-  ];
-
   const [checkedState, setCheckedState] = useState(
-    new Array(filterOptions.length).fill(false)
+    new Array(FILTER_OPTIONS.length).fill(false)
   );
 
   useEffect(() => {
     setCheckedState(
-      filterOptions.map((filter) =>
+      FILTER_OPTIONS.map((filter) =>
         filtersApplied.length && filtersApplied.includes(filter.value)
           ? true
           : false
@@ -107,14 +97,14 @@ function DropdownFilter({
             {t("dropdownFilter.filter-title")}
           </div>
           <ul className="mb-4">
-            {filterOptions.map(({ value, label }, index) => {
+            {FILTER_OPTIONS.map(({ value, label }, index) => {
               return (
                 <li key={index} className="py-1 px-3 flex items-center">
                   <input
                     type="checkbox"
                     className="form-checkbox"
                     id={`custom-checkbox-${index}`}
-                    name={label}
+                    name={t(label)}
                     value={value}
                     checked={checkedState[index]}
                     onChange={() => handleOnChange(index)}
@@ -123,7 +113,7 @@ function DropdownFilter({
                     htmlFor={`custom-checkbox-${index}`}
                     className="flex items-center text-sm font-medium ml-2"
                   >
-                    {label}
+                    {t(label)}
                   </label>
                 </li>
               );
@@ -135,7 +125,9 @@ function DropdownFilter({
                 <button
                   className="btn-xs bg-white border-slate-200 hover:border-slate-300 text-slate-500 hover:text-slate-600"
                   onClick={() =>
-                    setCheckedState(new Array(filterOptions.length).fill(false))
+                    setCheckedState(
+                      new Array(FILTER_OPTIONS.length).fill(false)
+                    )
                   }
                 >
                   {t("dropdownFilter.filter-clear")}
@@ -146,7 +138,7 @@ function DropdownFilter({
                   className="btn-xs bg-blue-500 hover:bg-blue-600 text-white"
                   onClick={() => {
                     const filtersToApply = checkedState
-                      .map((state, idx) => state && filterOptions[idx].value)
+                      .map((state, idx) => state && FILTER_OPTIONS[idx].value)
                       .filter((value) => !!value);
                     setCurrentPage(0);
                     setFiltersApplied(filtersToApply);

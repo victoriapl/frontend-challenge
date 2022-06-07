@@ -6,28 +6,11 @@ import SearchForm from "../partials/actions/SearchForm";
 import ProductsTable from "../partials/products/ProductsTable";
 import PaginationNumeric from "../components/PaginationNumeric";
 import DropdownFilter from "../components/DropdownFilter";
+
+import { fetchTotalResults } from "../graphQL/functions/fetch-total-results";
+import { fetchPageResults } from "../graphQL/functions/fetch-page-results";
+
 import { useTranslation } from "react-i18next";
-
-const ENDPOINT = "http://vps-123eb2fc.vps.ovh.net/graphql";
-const TOTAL_RESULTS_QUERY = (props) => `{
-  fetchProducts {
-    pagination (${props}) {
-      totalResults
-    }
-  }
-}`;
-
-const PRODUCTS_LIST_QUERY = (props) => `{
-  fetchProducts {
-    results (${props}) {
-      id
-      title
-      price
-      tax
-      stock
-    }
-  }
-}`;
 
 function Products() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -44,67 +27,21 @@ function Products() {
 
   useEffect(() => {
     // Fetch nomber of total results with filters
-    const fetchTotalResults = async () => {
-      const data = await fetch(ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          query: TOTAL_RESULTS_QUERY(`
-            page: ${currentPage + 1},
-            perPage: 10,
-            ${
-              filtersApplied.length
-                ? `taxFilter: ${JSON.stringify(filtersApplied)}, `
-                : ""
-            },
-            ${searchValue ? `titleFilter: ${JSON.stringify(searchValue)}` : ""},
-          `),
-        }),
-      }).then((response) => {
-        if (response.status >= 400) {
-          throw new Error("Error fetching data");
-        } else {
-          return response.json();
-        }
-      });
-      setTotalResults(data.data.fetchProducts.pagination.totalResults);
-    };
+    fetchTotalResults(
+      currentPage,
+      filtersApplied,
+      searchValue,
+      setTotalResults
+    );
 
     //Fetch page results with filters
-    const fetchPageResults = async () => {
-      const data = await fetch(ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          query: PRODUCTS_LIST_QUERY(`
-          page: ${currentPage + 1},
-          perPage: 10,
-          ${
-            filtersApplied.length
-              ? `taxFilter: ${JSON.stringify(filtersApplied)}, `
-              : ""
-          },
-          ${searchValue ? `titleFilter: ${JSON.stringify(searchValue)}` : ""},
-          ${
-            orderListBy.value
-              ? `orderBy: ${JSON.stringify(orderListBy.value)},
-              order: ${JSON.stringify(orderListBy.direction)}`
-              : ""
-          }
-        `),
-        }),
-      }).then((response) => {
-        if (response.status >= 400) {
-          throw new Error("Error fetching data");
-        } else {
-          return response.json();
-        }
-      });
-      setProductsList(data.data.fetchProducts.results);
-    };
-
-    fetchTotalResults();
-    fetchPageResults();
+    fetchPageResults(
+      currentPage,
+      filtersApplied,
+      searchValue,
+      orderListBy,
+      setProductsList
+    );
   }, [filtersApplied, currentPage, searchValue, orderListBy]);
 
   return (

@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import Product from "./ProductsTableItem";
 import ArrowIcon from "./../../icons/arrow-icon.svg";
-
-const DESC_DIRECTION = "DESC";
-const ASC_DIRECTION = "ASC";
+import { DESC_DIRECTION, ASC_DIRECTION } from "../../constants";
 
 function ProductsTable({
   totalResults,
