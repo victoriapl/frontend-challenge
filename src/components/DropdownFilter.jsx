@@ -83,6 +83,10 @@ function DropdownFilter({
       >
         <span className="text-sm font-medium">
           {t("dropdownFilter.filter-title")}
+          {"  "}
+          <span className="font-thin text-slate-400 mx-1">
+            {filtersApplied.length ? filtersApplied.length : ""}
+          </span>
         </span>
       </button>
       <Transition

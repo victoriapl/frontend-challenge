@@ -40,7 +40,7 @@ function Header() {
                 onClick={() => changeLanguage(key)}
                 className={`${
                   selectedLanguage === key
-                    ? "border-2 border-slate-600 rounded-full"
+                    ? "border border-slate-800 rounded-full"
                     : ""
                 }`}
               >
