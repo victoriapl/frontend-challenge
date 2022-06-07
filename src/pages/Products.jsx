@@ -152,6 +152,7 @@ function Products() {
               productsList={productsList}
               orderListBy={orderListBy}
               setOrderListBy={setOrderListBy}
+              setCurrentPage={setCurrentPage}
             />
 
             {/* Pagination */}

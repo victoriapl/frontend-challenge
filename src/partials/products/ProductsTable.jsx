@@ -11,6 +11,7 @@ function ProductsTable({
   productsList,
   setOrderListBy,
   orderListBy,
+  setCurrentPage,
 }) {
   const { t } = useTranslation("global");
   const formatterEuro = new Intl.NumberFormat("es-ES", {
@@ -59,6 +60,7 @@ function ProductsTable({
                               : ASC_DIRECTION,
                         };
                       });
+                      setCurrentPage(0);
                     }}
                   >
                     <div className="flex">
